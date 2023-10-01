@@ -6,8 +6,10 @@ class Program
     {
         Console.WriteLine("Welcome to the journaling program.");
         bool journaling = true;
+        Prompt prompt = new Prompt();
+
         while (journaling) {
-            Console.WriteLine("Choose an option (1-3)");
+            Console.WriteLine("Choose an option (1-6)");
             Console.WriteLine("1. Make entry for today.");
             Console.WriteLine("2. Make Entry for specific date.");
             Console.WriteLine("3. See today's journal entry.");
@@ -19,5 +21,16 @@ class Program
                 journaling = false;
             }
         }
+    }
+}
+
+public class Prompt{
+    static string _promptOptions = "Prompts.txt";
+    string[] _lines = System.IO.File.ReadAllLines(_promptOptions);
+
+    public string GeneratePrompt() {
+        Random rnd = new Random();
+        int promptSelection = rnd.Next(_lines.Length);
+        return _lines[promptSelection];
     }
 }
