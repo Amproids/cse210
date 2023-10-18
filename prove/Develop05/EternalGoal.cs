@@ -1,5 +1,5 @@
 public class EternalGoal : Goal {
-    EternalGoal (string shortname, string description, int points) : base(shortname, description, points) {
+    public EternalGoal (string shortname, string description, int points) : base(shortname, description, points) {
         _shortname = shortname;
         _description = description;
         _points = points;
@@ -12,6 +12,6 @@ public class EternalGoal : Goal {
         throw new NotImplementedException();
     }
     public override string GetStringRepresentation() {
-        throw new NotImplementedException();
+        return $"{_shortname},{_description},{_points}";
     }
 }
