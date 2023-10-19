@@ -1,13 +1,14 @@
 using System.IO;
 
 public class GoalManager {
-    private List<object> _goals = new List<object>{};
+    private List<Goal> _goals = new List<Goal>{};
     private int _score = 0;
     public void Start() {
         bool running = true;
         while (running) {
-            string filename = "MyGoals.txt";
+            Console.WriteLine();
             DisplayPlayerInfo();
+            Console.WriteLine();
             Console.WriteLine("Menu Options:");
             Console.WriteLine("  1. Create New Goal.");
             Console.WriteLine("  2. List Goals.");
@@ -21,15 +22,21 @@ public class GoalManager {
                     CreateGoal();
                     break;
                 case "2" :
-                    ListGoalNames();
+                    ListGoalDetails();
                     break;
                 case "3" :
-                    SaveGoals(filename);
+                    Console.Write("What is the filename for the goal file? ");
+                    string writeFile = Console.ReadLine();
+                    SaveGoals(writeFile);
                     break;
                 case "4" :
-                    LoadGoals(filename);
+                    Console.Write("What is the filename for the goal file? ");
+                    string readFile = Console.ReadLine();
+                    LoadGoals(readFile);
                     break;
                 case "5" :
+                    Console.WriteLine("The goals are:");
+                    ListGoalNames();
                     RecordEvent();
                     break;
                 case "6" :
@@ -48,11 +55,24 @@ public class GoalManager {
     }
 
     public void ListGoalNames() {
-        throw new NotImplementedException();
+        for (int i = 0; i < _goals.Count; i ++) {
+            Console.WriteLine($"  {i+1}. {_goals[i].GetName()}");
+        }
     }
 
     public void ListGoalDetails() {
-        throw new NotImplementedException();
+        Console.WriteLine("The goals are:");
+        for (int i = 0; i < _goals.Count; i ++) {
+            Goal goal = _goals[i];
+            string mark;
+            if (goal.IsComplete()) {
+                mark = "X";
+            }
+            else {
+                mark = " ";
+            }
+            Console.WriteLine($"  {i+1}. [{mark}] {goal.GetDetailsString()}");
+        }
     }
 
     public void CreateGoal() {
@@ -77,10 +97,10 @@ public class GoalManager {
                 break;
             case "3" :
                 Console.Write("How many times does this goal need to be accomplished for a bonus? ");
-                string newAmountCompleted = Console.ReadLine();
+                string newTarget= Console.ReadLine();
                 Console.Write("What is the bonus for accomplishing it that many times? ");
                 string newBonus = Console.ReadLine();
-                _goals.Add(new ChecklistGoal(newGoalName, newGoalDesctription, int.Parse(newGoalPoints), int.Parse(newAmountCompleted), 0, int.Parse(newBonus)));
+                _goals.Add(new ChecklistGoal(newGoalName, newGoalDesctription, int.Parse(newGoalPoints), 0, int.Parse(newTarget), int.Parse(newBonus)));
                 break;
             default :
                 Console.WriteLine("Invalid Response.");
@@ -89,7 +109,9 @@ public class GoalManager {
     }
 
     public void RecordEvent() {
-        throw new NotImplementedException();
+        Console.WriteLine("Which goal did you accomplish? ");
+        Goal goal = _goals[int.Parse(Console.ReadLine()) - 1];
+        _score += goal.RecordEvent();
     }
 
     public void SaveGoals(string filename) {

@@ -5,11 +5,11 @@ public class EternalGoal : Goal {
         _points = points;
     }
 
-    public override void RecordEvent() {
-        throw new NotImplementedException();
+    public override int RecordEvent() {
+        return _points;
     }
     public override bool IsComplete() {
-        throw new NotImplementedException();
+        return false;
     }
     public override string GetStringRepresentation() {
         return $"{_shortname},{_description},{_points}";

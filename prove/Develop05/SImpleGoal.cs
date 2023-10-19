@@ -7,8 +7,9 @@ public class SimpleGoal : Goal {
         _isComplete = isComplete;
     }
 
-    public override void RecordEvent() {
-        throw new NotImplementedException();
+    public override int RecordEvent() {
+        _isComplete = true;
+        return _points;
     }
     public override bool IsComplete() {
         return _isComplete;

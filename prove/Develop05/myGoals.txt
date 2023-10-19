@@ -1,3 +1,3 @@
-simple,a simple goal,10,False
-eternal,an eternal goal,20
-checklist,a chesklist goal,30,3,0,40
+Give a talk,Speak in Sacrament meeting when asked,100,False
+Study the scriptures,Study for at least 10 minutes,50
+Attend the temple,Attend and preform any ordinance,50,0,3,500

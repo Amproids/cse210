@@ -11,14 +11,25 @@ public class ChecklistGoal : Goal {
         _target = target;
         _bonus = bonus;
     }
-    public override void RecordEvent() {
-        throw new NotImplementedException();
+    public override int RecordEvent() {
+        _amountCompleted += 1;
+        if (_amountCompleted == _target) {
+            return _points = _bonus;
+        }
+        else {
+            return _points;
+        }
     }
     public override bool IsComplete() {
-        throw new NotImplementedException();
+        if (_amountCompleted == _target) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     public override string GetDetailsString() {
-        throw new NotImplementedException();
+        return $"{_shortname} ({_description}) -- Currently completed: {_amountCompleted}/{_target}";
     }
     public override string GetStringRepresentation() {
         return $"{_shortname},{_description},{_points},{_amountCompleted},{_target},{_bonus}";
